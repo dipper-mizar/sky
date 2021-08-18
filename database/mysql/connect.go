@@ -47,8 +47,8 @@ func (params *InitParams) SetDatabase(database string) ParamSetter {
 	}
 }
 
-func Init(functions ...ParamSetter) (*gorm.DB, error) {
-	params := &InitParams{
+func (params *InitParams) Init(functions ...ParamSetter) (*gorm.DB, error) {
+	p := &InitParams{
 		Host:     conf.MySQLHost,
 		Port:     conf.MySQLPort,
 		User:     conf.MySQLUser,
@@ -56,7 +56,7 @@ func Init(functions ...ParamSetter) (*gorm.DB, error) {
 		Database: conf.MySQLDatabase,
 	}
 	for _, function := range functions {
-		function(params)
+		function(p)
 	}
 	dataSourceName := fmt.Sprintf("%s:%s@(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", params.User,
 		params.Password, params.Host, params.Port, params.Database)
