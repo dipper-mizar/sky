@@ -47,7 +47,7 @@ func (params *InitParams) SetDatabase(database string) ParamSetter {
 	}
 }
 
-func (params *InitParams) Init(functions ...ParamSetter) (*gorm.DB, error) {
+func (params *InitParams) Init(functions ...ParamSetter) *gorm.DB {
 	p := &InitParams{
 		Host:     conf.MySQLHost,
 		Port:     conf.MySQLPort,
@@ -64,5 +64,5 @@ func (params *InitParams) Init(functions ...ParamSetter) (*gorm.DB, error) {
 	if err != nil {
 		// TODO: Write error into logger.
 	}
-	return database, nil
+	return database
 }

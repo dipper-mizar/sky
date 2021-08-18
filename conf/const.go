@@ -7,7 +7,7 @@ const (
 	MySQLPassword = "000000"
 	MySQLDatabase = "sky"
 
-	RedisAddr     = "127.0.0.1"
+	RedisAddr     = "127.0.0.1:6379"
 	RedisPassword = ""
 	RedisDatabase = 0
 )
