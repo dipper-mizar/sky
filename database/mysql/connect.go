@@ -55,15 +55,14 @@ func Init(functions ...ParamSetter) (*gorm.DB, error) {
 		Password: conf.MySQLPassword,
 		Database: conf.MySQLDatabase,
 	}
-
+	for _, function := range functions {
+		function(params)
+	}
 	dataSourceName := fmt.Sprintf("%s:%s@(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", params.User,
 		params.Password, params.Host, params.Port, params.Database)
 	database, err := gorm.Open("mysql", dataSourceName)
 	if err != nil {
 		// TODO: Write error into logger.
-	}
-	for _, function := range functions {
-		function(params)
 	}
 	return database, nil
 }
